@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://mern-crm-7gd9.onrender.com/api/auth/login",
+        "https://api-mernz.onrender.com/api/auth/login",
         {
           email,
           password,

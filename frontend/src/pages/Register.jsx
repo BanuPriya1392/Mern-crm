@@ -22,7 +22,7 @@ function Register() {
     e.preventDefault();
     try {
       await axios.post(
-        "https://mern-crm-7gd9.onrender.com/api/auth/register",
+        "https://api-mernz.onrender.com/api/auth/register",
         formData,
       );
       alert("Registration Successful");

@@ -10,9 +10,12 @@ function Dashboard() {
 
   const fetchCustomers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/customers", {
-        headers: { Authorization: token },
-      });
+      const res = await axios.get(
+        "https://api-mernz.onrender.com/api/customers",
+        {
+          headers: { Authorization: token },
+        },
+      );
       setCustomers(res.data);
     } catch (error) {
       console.error("Error fetching customers");
@@ -26,7 +29,7 @@ function Dashboard() {
   const addCustomer = async (e) => {
     e.preventDefault();
     await axios.post(
-      "http://localhost:5000/api/customers",
+      "https://api-mernz.onrender.com/api/customers",
       { name, email },
       {
         headers: { Authorization: token },
