@@ -11,7 +11,7 @@ const app = express();
 // 1. Updated CORS configuration for better security and stability
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000", // Ensure this matches your frontend URL
+    origin: "*", // Ensure this matches your frontend URL
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
