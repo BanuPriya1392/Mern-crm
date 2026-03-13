@@ -4,34 +4,43 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
-// 1. Updated CORS configuration for better security and stability
+// Middleware
 app.use(
   cors({
-    origin: "*", // Ensure this matches your frontend URL
+    origin: "*",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
-  }),
+  })
 );
 
 app.use(express.json());
 
-// 2. Route mounting
-// Based on your server.js, the routes are prefixed.
-// Ensure your frontend calls match these prefixes:
+// Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/customers", require("./routes/customerRoutes"));
 
-// 3. Simple error handling middleware to catch issues
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send({ message: "Something went wrong on the server!" });
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+// Start server only after DB connection
+const startServer = async () => {
+  try {
+    await connectDB(); // Wait until DB connects
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Server startup failed:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
