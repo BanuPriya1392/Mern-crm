@@ -19,6 +19,11 @@ app.use(
 
 app.use(express.json());
 
+// Root route
+app.get("/", (req, res) => {
+  res.send("Backend API is running");
+});
+
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/customers", require("./routes/customerRoutes"));
@@ -26,7 +31,9 @@ app.use("/api/customers", require("./routes/customerRoutes"));
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send({ message: "Something went wrong on the server!" });
+  res.status(500).send({
+    message: "Something went wrong on the server!",
+  });
 });
 
 const PORT = process.env.PORT || 5000;
@@ -34,7 +41,7 @@ const PORT = process.env.PORT || 5000;
 // Start server only after DB connection
 const startServer = async () => {
   try {
-    await connectDB(); // Wait until DB connects
+    await connectDB();
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
@@ -42,6 +49,6 @@ const startServer = async () => {
     console.error("Server startup failed:", error);
     process.exit(1);
   }
-};  
+};
 
 startServer();
