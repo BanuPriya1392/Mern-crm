@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import "../index.css";
 
 function Dashboard() {
@@ -10,8 +10,8 @@ function Dashboard() {
 
   const fetchCustomers = async () => {
     try {
-      const res = await axios.get(
-        "https://api-mernz.onrender.com/api/customers",
+      const res = await api.get(
+        "/customers",
         {
           headers: { Authorization: token },
         },
@@ -28,8 +28,8 @@ function Dashboard() {
 
   const addCustomer = async (e) => {
     e.preventDefault();
-    await axios.post(
-      "https://api-mernz.onrender.com/api/customers",
+    await api.post(
+      "/customers",
       { name, email },
       {
         headers: { Authorization: token },
@@ -41,8 +41,8 @@ function Dashboard() {
   };
 
   const deleteCustomer = async (id) => {
-    await axios.delete(
-      `https://mern-crm-7gd9.onrender.com/api/customers/${id}`,
+    await api.delete(
+      `/customers/${id}`,
       {
         headers: { Authorization: token },
       },

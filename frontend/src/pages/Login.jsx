@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import { useNavigate, Link } from "react-router-dom"; // 1. Added Link here
 import "../index.css";
 
@@ -11,8 +11,8 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "https://api-mernz.onrender.com/api/auth/login",
+      const res = await api.post(
+        "/auth/login",
         {
           email,
           password,
